@@ -122,13 +122,15 @@ public class SVGRadialGradient: SVGGradient {
         let width = bounds.width
         let height = bounds.height
         let minimum = min(width, height)
+        let offsetRect = model is SVGPolygon ? frame : bounds
+
         return view
             .foregroundColor(.clear)
             .overlay(
                 toSwiftUI(rect: frame)
                     .scaleEffect(CGSize(width: userSpace ? 1 : width/minimum,
                                         height: userSpace ? 1 : height/minimum))
-                    .offset(x: bounds.minX, y: bounds.minY)
+                    .offset(x: offsetRect.minX, y: offsetRect.minY)
                     .mask(view)
             )
     }
